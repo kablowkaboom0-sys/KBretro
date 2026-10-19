@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>KB RETRO</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#10131c;color:#f6e9c8;font-family:monospace;touch-action:none}#screen{position:absolute;width:100%;height:100%;object-fit:contain;image-rendering:pixelated;background:#141824}#menu{position:absolute;inset:0;display:grid;place-items:center;background:#10131cdd;text-align:center}#menu article{max-width:390px;padding:20px;border:3px solid #f6e9c8;background:#20273a}h1{font-size:38px;margin:0;color:#ffcb66}p{line-height:1.5}button{font: bold 17px monospace;color:#161b27;background:#ffcb66;border:0;padding:12px 20px;cursor:pointer}#touch{position:absolute;inset:0;pointer-events:none;display:none}#touch button{pointer-events:auto;position:absolute;opacity:.65;border:2px solid #fff5;background:#273349;color:white;padding:0;width:53px;height:53px;border-radius:8px;user-select:none}#touch .act{background:#9b493f}#pauseBtn{position:absolute;top:9px;right:9px;z-index:3;padding:8px 12px;font:700 15px/1 monospace;opacity:1;color:#171b25;background:#ffcb66;text-shadow:none;display:none}#pauseMenu{position:absolute;inset:0;z-index:5;display:none;place-items:center;background:#10131ce8;text-align:center}#pauseMenu article{padding:22px;border:3px solid #f6e9c8;background:#20273a;max-width:340px}#pauseMenu button{margin:5px}#joy{position:absolute;left:18px;bottom:34px;width:132px;height:132px;border:3px solid #ffffff77;border-radius:50%;background:#27334999;pointer-events:auto;touch-action:none}#knob{position:absolute;left:42px;top:42px;width:42px;height:42px;border-radius:50%;background:#ffcb66;border:2px solid #fff8;pointer-events:none}#ver{position:absolute;right:6px;bottom:4px;color:#fff;font:700 12px/1 monospace;text-shadow:1px 1px #10131c;pointer-events:none}@media(pointer:coarse){#touch{display:block}}
-</style></head><body><canvas id="screen" width="256" height="144"></canvas><div id="menu"><article><h1>KB RETRO</h1><p>144P // OFFLINE BOT ARENA</p><p>WASD move · Mouse aim · Shift sprint<br>Space jump · Ctrl slide<br>Left click melee · Right click throw<br>Body 75 · Head 100 · Knife returns in 1 second</p><button id="start">START MATCH</button><p id="result">One opponent at a time. First to 10 eliminations wins.</p></article></div><div id="touch"><div id="joy"><div id="knob"></div></div><button data-k="shift" id="runBtn" style="left:165px;bottom:8px">RUN</button><button data-k=" " style="right:140px;bottom:8px">JUMP</button><button data-k="control" style="right:140px;bottom:70px">SLIDE</button><button class="act" id="melee" style="right:17px;bottom:70px">HIT</button><button class="act" id="throw" style="right:78px;bottom:12px">THROW</button></div><button id="pauseBtn">Ⅱ PAUSE</button><div id="pauseMenu"><article><h1>PAUSED</h1><p>Sprint mode</p><button id="sprintMode">MANUAL SPRINT</button><p id="sprintHelp">Hold Shift or RUN to sprint.</p><button id="resume">RESUME</button></article></div><div id="ver">KB RETRO v0.9</div><script>
+</style></head><body><canvas id="screen" width="256" height="144"></canvas><div id="menu"><article><h1>KB RETRO</h1><p>144P // OFFLINE BOT ARENA</p><p>WASD move · Mouse aim · Shift sprint<br>Space jump · Ctrl slide<br>Left click melee · Right click throw<br>Body 75 · Head 100 · Knife returns in 1 second</p><button id="start">START MATCH</button><p id="result">One opponent at a time. First to 10 eliminations wins.</p></article></div><div id="touch"><div id="joy"><div id="knob"></div></div><button data-k="shift" id="runBtn" style="left:165px;bottom:8px">RUN</button><button data-k=" " style="right:140px;bottom:8px">JUMP</button><button data-k="control" style="right:140px;bottom:70px">SLIDE</button><button class="act" id="melee" style="right:17px;bottom:70px">HIT</button><button class="act" id="throw" style="right:78px;bottom:12px">THROW</button></div><button id="pauseBtn">Ⅱ PAUSE</button><div id="pauseMenu"><article><h1>PAUSED</h1><p>Sprint mode</p><button id="sprintMode">MANUAL SPRINT</button><p id="sprintHelp">Hold Shift or RUN to sprint.</p><button id="resume">RESUME</button></article></div><div id="ver">KB RETRO v1.0</div><script>
 (()=>{'use strict';
 const c=document.querySelector('#screen'),g=c.getContext('2d',{alpha:false});g.imageSmoothingEnabled=false;
 const W=256,H=144,PI=Math.PI,TAU=PI*2,map=[
@@ -52,20 +52,26 @@ ep(0,15,4,13,'#c99b77');ep(20,15,4,13,'#c99b77');ep(1,16,2,9,'#d6ae85');
 ep(8,18,8,3,'#343a46');ep(9,19,6,1,'#f2cf8c');
 ep(4,28,16,3,'#343743');ep(5,31,6,7,'#303847');ep(13,31,6,7,'#303847');
 ep(4,38,8,2,'#171d2a');ep(12,38,8,2,'#171d2a');
-// Original pixel-art sapphire butterfly knife, stored entirely inside this HTML.
-const knifeArt=document.createElement('canvas');knifeArt.width=80;knifeArt.height=36;
+// Compact, recognizable open balisong silhouette: blade above twin pivoting handles.
+const knifeArt=document.createElement('canvas');knifeArt.width=40;knifeArt.height=72;
 const kg=knifeArt.getContext('2d');kg.imageSmoothingEnabled=false;
-function kl(points,color,width){kg.strokeStyle=color;kg.lineWidth=width;kg.lineJoin='round';kg.lineCap='square';kg.beginPath();kg.moveTo(points[0][0],points[0][1]);for(let i=1;i<points.length;i++)kg.lineTo(points[i][0],points[i][1]);kg.stroke()}
-kl([[5,5],[12,7],[22,15],[34,18],[43,17]],'#131928',10);
-kl([[5,5],[12,7],[22,15],[34,18],[43,17]],'#f2a4fc',7);
-kl([[5,4],[12,6],[22,13],[34,16],[43,16]],'#7850f1',5);
-kl([[7,4],[16,9],[24,14],[35,16]],'#b8a6ff',2);
-kl([[38,17],[48,20],[61,26],[72,33]],'#101827',11);
-kl([[38,17],[48,20],[61,26],[72,33]],'#a2e8ec',7);
-kl([[39,17],[49,20],[62,27],[72,33]],'#152e3e',5);
-kl([[43,18],[52,21],[64,28],[71,32]],'#28d6e4',2);
-kl([[42,21],[50,25],[59,30]],'#6a7e91',2);
-for(const [x,y] of [[39,17],[46,21],[68,31]]){kg.fillStyle='#e2f8f6';kg.fillRect(x,y,2,2)}
+function kp(x,y,w,h,c){kg.fillStyle=c;kg.fillRect(x,y,w,h)}
+function poly(pts,c){kg.fillStyle=c;kg.beginPath();kg.moveTo(...pts[0]);for(let i=1;i<pts.length;i++)kg.lineTo(...pts[i]);kg.closePath();kg.fill()}
+// Pointed sapphire blade with a dark spine and a bright cutting edge.
+poly([[18,1],[23,7],[26,30],[23,36],[15,36],[14,28]],'#101927');
+poly([[18,4],[22,9],[24,29],[21,34],[17,33],[16,27]],'#31c6e8');
+poly([[18,7],[20,12],[21,29],[18,30]],'#a2f6ff');
+kp(15,31,11,3,'#152130');kp(17,32,7,2,'#b2eafa');
+// Two distinct hinged handles, separated by a visible dark channel.
+poly([[13,35],[19,35],[17,65],[11,66],[9,61]],'#101522');
+poly([[22,35],[28,35],[31,61],[28,66],[22,65]],'#101522');
+poly([[14,37],[18,37],[16,62],[12,63],[11,59]],'#7540bb');
+poly([[23,37],[27,37],[29,60],[27,63],[23,62]],'#8a4cdb');
+kp(14,40,2,18,'#c48afa');kp(25,40,2,18,'#d3a0ff');
+for(let y=43;y<61;y+=6){kp(12,y,5,2,'#372750');kp(24,y,5,2,'#372750')}
+kp(12,35,7,4,'#172535');kp(22,35,7,4,'#172535');
+kp(14,36,2,2,'#bdebf1');kp(25,36,2,2,'#bdebf1');
+kp(11,64,7,3,'#263241');kp(23,64,7,3,'#263241');
 function drawKnife(x,y,w,h,rotation=0,alpha=1){g.save();g.globalAlpha=alpha;g.translate(Math.round(x),Math.round(y));g.rotate(rotation);g.imageSmoothingEnabled=false;g.drawImage(knifeArt,-w*.5,-h*.5,w,h);g.restore()}
 function render(){
 // Eye height is a world-space camera translation, not a shifted or tilted horizon.
@@ -111,17 +117,22 @@ for(let x=0;x<W;x++){
 let sprites=[];for(const b of bots)sprites.push({x:b.x,y:b.y,z:0,type:'bot',o:b});for(const s of shots)if(s.active)sprites.push({x:s.x,y:s.y,z:s.z,type:'knife',o:s});for(const q of particles)sprites.push({x:q.x,y:q.y,z:q.z,type:'spark',o:q});sprites.sort((a,b)=>Math.hypot(b.x-p.x,b.y-p.y)-Math.hypot(a.x-p.x,a.y-p.y));
 for(const s of sprites){let dx=s.x-p.x,dy=s.y-p.y,d=Math.hypot(dx,dy),ang=angle(Math.atan2(dy,dx)-p.a);if(Math.abs(ang)>1||d<.12)continue;let sx=W/2+Math.tan(ang)*140,scale=104/(d*Math.cos(ang)),y=horizon+scale*(eye-s.z);if(s.type==='bot'){let w=scale*.44,hh=scale*.84,left=sx-w/2,top=y-hh*.5;for(let xx=Math.max(0,Math.floor(left));xx<Math.min(W,Math.ceil(left+w));xx++)if(zbuf[xx]>d-.12){let src=clamp(Math.floor((xx-left)/w*24),0,23);g.drawImage(enemyArt,src,0,1,40,xx|0,top|0,1,Math.ceil(hh))}let hpw=scale*.44;rect(sx-hpw/2,top-5,hpw,2,'#15191d');rect(sx-hpw/2,top-5,hpw*s.o.hp/100,2,'#b8d78e')}else if(sx>=0&&sx<W&&zbuf[Math.floor(sx)]>d-.1){let sz=clamp(scale*.13,1,8);if(s.type==='knife'){drawKnife(sx,y,Math.max(5,sz*3),Math.max(3,sz*1.35),s.o.life*19)}else rect(sx-sz/2,y-sz/2,sz,Math.max(1,sz/3),'#f3bb64')}}
 let cy=72;rect(126,cy,4,1,'#f6e9c8');rect(128,cy-2,1,5,'#f6e9c8');rect(3,3,76,12,'#151b27');rect(5,5,70*p.hp/100,4,p.hp>35?'#91cb91':'#df7966');g.font='6px monospace';g.fillStyle='#fff1d3';g.fillText('HP '+Math.ceil(p.hp)+'/100',5,13);g.fillText('KOs '+score+'/10  DEATHS '+dead,5,23);g.fillText(p.knife>0?'RETURN '+p.knife.toFixed(1)+'s':'KNIFE READY',5,31);
-// The first-person knife follows a broad swipe arc; a throw flicks it off-screen.
+// The grip and hand move as one object; slash sweeps sideways, throw extends forward.
 const swing=p.melee>0?1-p.melee/.48:0;
-const arc=p.melee>0?Math.sin(swing*Math.PI):0;
+const slash=p.melee>0?Math.sin(swing*Math.PI):0;
 const flick=p.knife>.78?(1-p.knife)/.22:0;
 if(p.knife<=.78||flick<1){
- const kx=202-arc*68-flick*110,ky=112-arc*49-flick*52;
- const rot=-.64-arc*1.6-flick*2.2;
- if(arc>.03){g.save();g.globalAlpha=arc*.28;g.strokeStyle='#91eafa';g.lineWidth=3;g.beginPath();g.arc(166,113,62,-1.45,-.20);g.stroke();g.restore()}
- drawKnife(kx,ky,80,36,rot,p.knife>.78?1-flick:1);
- rect(205-arc*38,126-arc*12,20,18,'#b58d6d');
- rect(207-arc*38,124-arc*12,15,5,'#d4aa85');
+ const kx=211-slash*82-flick*57,ky=111-slash*30-flick*65;
+ const rot=.16-slash*1.28+flick*.62;
+ g.save();g.translate(Math.round(kx),Math.round(ky));g.rotate(rot);
+ if(slash>.05){g.globalAlpha=slash*.35;g.strokeStyle='#64d9ee';g.lineWidth=3;g.beginPath();g.arc(-4,-15,37,-2.5,-.5);g.stroke();g.globalAlpha=1}
+ // Wrist, fist and fingers attach directly around the lower handle.
+ rect(-8,24,17,27,'#8a614c');rect(-10,23,19,14,'#c99a76');
+ rect(-9,23,5,12,'#e0b08a');rect(-3,22,5,13,'#d9a783');
+ rect(3,24,6,11,'#b98666');rect(-9,47,19,6,'#28354a');
+ g.imageSmoothingEnabled=false;g.globalAlpha=p.knife>.78?1-flick:1;
+ g.drawImage(knifeArt,-20,-45,40,72);
+ g.restore();
 }
 if(throwHeld&&p.knife<=0){g.fillStyle='#80eff2';g.font='6px monospace';g.fillText('AIM / RELEASE',106,85)}
 if(p.flash>0){g.fillStyle='rgba(255,85,65,'+(p.flash*.45)+')';g.fillRect(0,0,W,H)}}
