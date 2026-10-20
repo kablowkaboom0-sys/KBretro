@@ -14,7 +14,7 @@
 #menu,#pauseMenu,#endMenu,#countdown{font-smooth:never;-webkit-font-smoothing:none;text-rendering:optimizeSpeed}
 /* Crisp bitmap labels, while touch/game controls retain their normal legible fonts. */
 .pixel-label{display:inline-block;vertical-align:middle;white-space:nowrap;line-height:0;color:inherit}.pixel-label svg{display:block;overflow:visible;shape-rendering:crispEdges;flex:none}#menu .choice .pixel-label{display:inline-block}#menu .choice small .pixel-label{display:inline-block}#menu article,#pauseMenu article,#endMenu article{scrollbar-width:none}#menu article::-webkit-scrollbar,#pauseMenu article::-webkit-scrollbar,#endMenu article::-webkit-scrollbar{display:none}
-</style></head><body><canvas id="screen" width="256" height="144"></canvas><div id="menu"><article><h1>KB RETRO</h1><p>144P // OFFLINE BOT ARENA</p><section id="modeStage"><p>SELECT GAME MODE</p><button class="choice" id="modeOriginal"><strong>BOT ARENA</strong><small>One opponent at a time · First to 6 rounds wins</small></button><button class="choice" id="openStats"><strong>PLAYER STATS</strong><small>View your lifetime match records</small></button><p id="result">Choose a mode to continue.</p></section><section id="statsStage"><p>PLAYER STATS</p><p>TOTAL KILLS: <strong id="statKills">0</strong></p><p>TOTAL DEATHS: <strong id="statDeaths">0</strong></p><p>TOTAL WINS: <strong id="statWins">0</strong></p><button class="choice" id="exportStats"><strong>EXPORT SAVE</strong><small>Download a backup file</small></button><button class="choice" id="importStats"><strong>IMPORT SAVE</strong><small>Restore a backup file</small></button><input id="statsFile" type="file" accept=".json,application/json" style="display:none"><p id="statsMessage" aria-live="polite">Saved on this device.</p><button class="back" id="backStats">← BACK TO MODES</button></section><section id="mapStage"><p>SELECT MAP</p><button class="choice" id="start"><strong>ORIGINAL</strong><small>The classic KB RETRO arena · 16 × 16 layout</small></button><button class="back" id="backMode">← BACK TO MODES</button><p>WASD move · Mouse aim · Shift sprint<br>Space jump · Ctrl slide<br>Left click melee · Right click throw<br>Body 75 · Head 999</p></section></article></div><div id="touch"><div id="joy"><div id="knob"></div></div><button data-k="shift" id="runBtn" style="left:165px;bottom:8px">RUN</button><button data-k=" " style="right:140px;bottom:8px">JUMP</button><button data-k="control" style="right:140px;bottom:70px">SLIDE</button><button class="act" id="melee" style="right:17px;bottom:70px">HIT</button><button class="act" id="throw" style="right:78px;bottom:12px">THROW</button></div><button id="pauseBtn">Ⅱ PAUSE</button><div id="pauseMenu"><article><h1>PAUSED</h1><p>Sprint mode</p><button id="sprintMode">MANUAL SPRINT</button><p id="sprintHelp">Hold Shift or RUN to sprint.</p><div class="setting"><label for="sensitivity">CAMERA SENSITIVITY <output id="sensValue">100%</output></label><input id="sensitivity" type="range" min="25" max="250" step="5" value="100"><small>Mouse and touch camera speed</small></div><button id="aspectBtn" type="button">ASPECT 16:9</button><button id="fullscreenBtn" type="button">FULLSCREEN</button><button id="resume">RESUME</button><small id="fullscreenHelp" aria-live="polite">Keeps the original 16:9 picture.</small></article></div><div id="countdown" aria-live="polite">3</div><div id="endMenu"><article><h1 id="endTitle">WINNER</h1><p id="endScore"></p><button id="replay">REPLAY</button><button id="continue">CONTINUE</button></article></div><div id="ver">KB RETRO v4.3</div><script>
+</style></head><body><canvas id="screen" width="256" height="144"></canvas><div id="menu"><article><h1>KB RETRO</h1><p>144P // OFFLINE BOT ARENA</p><section id="modeStage"><p>SELECT GAME MODE</p><button class="choice" id="modeOriginal"><strong>BOT ARENA</strong><small>One opponent at a time · First to 6 rounds wins</small></button><button class="choice" id="openStats"><strong>PLAYER STATS</strong><small>View your lifetime match records</small></button><p id="result">Choose a mode to continue.</p></section><section id="statsStage"><p>PLAYER STATS</p><p>TOTAL KILLS: <strong id="statKills">0</strong></p><p>TOTAL DEATHS: <strong id="statDeaths">0</strong></p><p>TOTAL WINS: <strong id="statWins">0</strong></p><button class="choice" id="exportStats"><strong>EXPORT SAVE</strong><small>Download a backup file</small></button><button class="choice" id="importStats"><strong>IMPORT SAVE</strong><small>Restore a backup file</small></button><input id="statsFile" type="file" accept=".json,application/json" style="display:none"><p id="statsMessage" aria-live="polite">Saved on this device.</p><button class="back" id="backStats">← BACK TO MODES</button></section><section id="mapStage"><p>SELECT MAP</p><button class="choice" id="start"><strong>ORIGINAL</strong><small>The classic KB RETRO arena · 16 × 16 layout</small></button><button class="back" id="backMode">← BACK TO MODES</button><p>WASD move · Mouse aim · Shift sprint<br>Space jump · Ctrl slide<br>Left click melee · Right click throw<br>Body 75 · Head 999</p></section></article></div><div id="touch"><div id="joy"><div id="knob"></div></div><button data-k="shift" id="runBtn" style="left:165px;bottom:8px">RUN</button><button data-k=" " style="right:140px;bottom:8px">JUMP</button><button data-k="control" style="right:140px;bottom:70px">SLIDE</button><button class="act" id="melee" style="right:17px;bottom:70px">HIT</button><button class="act" id="throw" style="right:78px;bottom:12px">THROW</button></div><button id="pauseBtn">Ⅱ PAUSE</button><div id="pauseMenu"><article><h1>PAUSED</h1><p>Sprint mode</p><button id="sprintMode">MANUAL SPRINT</button><p id="sprintHelp">Hold Shift or RUN to sprint.</p><div class="setting"><label for="sensitivity">CAMERA SENSITIVITY <output id="sensValue">100%</output></label><input id="sensitivity" type="range" min="25" max="250" step="5" value="100"><small>Mouse and touch camera speed</small></div><button id="aspectBtn" type="button">ASPECT 16:9</button><button id="fullscreenBtn" type="button">FULLSCREEN</button><button id="resume">RESUME</button><small id="fullscreenHelp" aria-live="polite">Keeps the original 16:9 picture.</small></article></div><div id="countdown" aria-live="polite">3</div><div id="endMenu"><article><h1 id="endTitle">WINNER</h1><p id="endScore"></p><button id="replay">REPLAY</button><button id="continue">CONTINUE</button></article></div><div id="ver">KB RETRO v4.4</div><script>
 (()=>{'use strict';
 const c=document.querySelector('#screen'),g=c.getContext('2d',{alpha:false});g.imageSmoothingEnabled=false;
 const glyphs={A:['010','101','111','101','101'],B:['110','101','110','101','110'],C:['011','100','100','100','011'],D:['110','101','101','101','110'],E:['111','100','110','100','111'],F:['111','100','110','100','100'],G:['011','100','101','101','011'],H:['101','101','111','101','101'],I:['111','010','010','010','111'],J:['001','001','001','101','010'],K:['101','101','110','101','101'],L:['100','100','100','100','111'],M:['10001','11011','10101','10001','10001'],N:['101','111','111','111','101'],O:['010','101','101','101','010'],P:['110','101','110','100','100'],Q:['010','101','101','111','011'],R:['110','101','110','101','101'],S:['011','100','010','001','110'],T:['111','010','010','010','010'],U:['101','101','101','101','111'],V:['101','101','101','101','010'],W:['10001','10001','10101','11011','10001'],X:['101','101','010','101','101'],Y:['101','101','010','010','010'],Z:['111','001','010','100','111'],'0':['111','101','101','101','111'],'1':['010','110','010','010','111'],'2':['110','001','010','100','111'],'3':['110','001','010','001','110'],'4':['101','101','111','001','001'],'5':['111','100','110','001','110'],'6':['011','100','110','101','010'],'7':['111','001','010','010','010'],'8':['010','101','010','101','010'],'9':['010','101','011','001','110'],'.':['0','0','0','0','1'],':':['0','1','0','1','0'],'/':['001','001','010','100','100'],'-':['000','000','111','000','000'],'%':['101','001','010','100','101'],'+':['000','010','111','010','000'],'×':['101','010','010','010','101'],'←':['001','010','111','010','001'],'·':['0','0','1','0','0'],'Ⅱ':['101','101','101','101','101'],'!':['1','1','1','0','1'],'?':['110','001','010','000','010'],'(':['01','10','10','10','01'],')':['10','01','01','01','10'],',':['0','0','0','1','1']};
@@ -110,22 +110,28 @@ function smooth(t){t=clamp(t,0,1);return t*t*(3-2*t)}
 function handAndKnife(x,y,rotation,flip,reach,opacity=1){
  g.save();g.globalAlpha=opacity;g.translate(Math.round(x),Math.round(y));g.rotate(rotation);g.imageSmoothingEnabled=false;
  const lift=reach*5;
- // Blade points away from the wrist; the hand wraps the pivot/near handle, not the blade.
- g.drawImage(knifeArt,-64,-25-lift,96,46);
- // Blocky sleeve and rectangular forearm, behind the gripping fingers.
- g.fillStyle='#303a49';g.fillRect(-9,17-lift,28,65);
- g.fillStyle='#b77e5d';g.fillRect(-7,17-lift,23,61);
- g.fillStyle='#d59b74';g.fillRect(-5,20-lift,16,55);
- // Palm on the lower handle with a thumb crossing the near side of its pivot.
- g.fillStyle='#875840';g.fillRect(-10,-1-lift,22,26);
- g.fillStyle='#dca27c';g.fillRect(-8,-3-lift,18,23);
- g.fillStyle='#f0bb91';g.fillRect(-8,-3-lift,13,5);
- g.fillStyle='#b97d5b';g.fillRect(-9,11-lift,22,5);
- g.fillStyle='#e5ad86';g.fillRect(-7,0-lift,17,4);
- g.fillStyle='#d39873';g.fillRect(-7,5-lift,18,4);
- g.fillStyle='#c38765';g.fillRect(-6,10-lift,19,4);
- g.fillStyle='#e9b18b';g.fillRect(8,-2-lift,6,13);
- g.fillStyle='#a86f52';g.fillRect(-8,22-lift,3,52);
+ // Compact open balisong: tip points upper-left, pivot rests just above the knuckles.
+ // Render the complete knife at a controlled size, then cover only the near handle with fingers.
+ g.drawImage(knifeArt,-46,-20-lift,66,32);
+ // Straight rectangular sleeve and wrist, continuous with the palm.
+ g.fillStyle='#252d3a';g.fillRect(3,13-lift,23,68);
+ g.fillStyle='#a76e53';g.fillRect(5,13-lift,19,66);
+ g.fillStyle='#c98d69';g.fillRect(7,15-lift,14,61);
+ g.fillStyle='#e0a47c';g.fillRect(8,16-lift,10,48);
+ // Palm grips the two butterfly rails at the pivot; squared silhouette suits the 144p renderer.
+ g.fillStyle='#83533f';g.fillRect(-2,-1-lift,21,24);
+ g.fillStyle='#d89b73';g.fillRect(0,-3-lift,17,23);
+ g.fillStyle='#eab18a';g.fillRect(0,-4-lift,12,5);
+ // Fingers overlap the lower handle, with visible gaps/shading rather than a featureless blob.
+ g.fillStyle='#b87a58';g.fillRect(-1,3-lift,19,4);
+ g.fillStyle='#e4a780';g.fillRect(-1,2-lift,15,3);
+ g.fillStyle='#ad7053';g.fillRect(0,8-lift,19,4);
+ g.fillStyle='#d99a74';g.fillRect(0,7-lift,15,3);
+ g.fillStyle='#9d654c';g.fillRect(1,13-lift,17,4);
+ g.fillStyle='#cb8b68';g.fillRect(1,12-lift,13,3);
+ // Thumb crosses the top of the near rail and anchors the grip.
+ g.fillStyle='#f0b990';g.fillRect(12,-2-lift,6,11);
+ g.fillStyle='#c88a66';g.fillRect(15,5-lift,4,5);
  g.restore();
 }
 const countdownGlyphs={'1':['00100','01100','00100','00100','00100','00100','01110'],'2':['01110','10001','00001','00010','00100','01000','11111'],'3':['11110','00001','00001','01110','00001','00001','11110']};
@@ -195,7 +201,7 @@ const wind=smooth(attack/.25),strike=smooth((attack-.25)/.43),recover=smooth((at
 const slash=p.melee>0?Math.sin(attack*Math.PI):0;
 const released=p.knife>.75?clamp((1-p.knife)/.25,0,1):0;
 if(!viewBot&&(p.knife<=.75||released<1)){
- let kx=215,ky=H-22,rot=.32,flip=0,reach=0,alpha=1;
+ let kx=220,ky=H-18,rot=.32,flip=0,reach=0,alpha=1;
  const lowPose=p.slide>0||p.crouch>.5,motion=p.bobAmount,run=p.bobRun;
  const stride=p.bobPhase,sway=Math.sin(stride)*motion,bob=(1-Math.cos(stride*2))*.5*motion;
  kx+=sway*(1.5+1.5*run);ky+=bob*(1.2+1.5*run);rot+=sway*(.012+.018*run);
