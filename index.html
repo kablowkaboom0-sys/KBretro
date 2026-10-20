@@ -88,14 +88,14 @@ ep(4,38,8,2,'#171d2a');ep(12,38,8,2,'#171d2a');
 // Self-contained pixel-art curved butterfly knife inspired by the supplied blue-camo reference.
 // Uploaded knife image, embedded directly: no external asset or network dependency.
 const knifeArt=new Image();knifeArt.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAA+CAMAAADjwu6NAAAAYFBMVEUAAAAvJCNWKCRrQx4iHBs3OUIoIiFkCwmNWC9iYGJQKiFOKR8aG01qYwRQUFMAaWn/AABnRSOsZitOJkqGLD2WYzM2N0E9PEE+QUmRL0WqVVX///93TixSS0OZMzOcaTSbC9a2AAAAIHRSTlMA+vv8Xf2dCvQGYJkVCP0DAZwQHv5iT7j//AMBS3kFlhcCQXwAAAIpSURBVHjatZfnUiMxEIRnFFYbHbANHFx4/7e8UWIl2f+2NbDlgjL66J4kExE56hm3pTdBsSPXFcE8d1XgmHnpqMDRIATVT4S7iEdCWOZe9eTIcEAkFRf/O4c3yRMaoy7IQsoIpZZlmd28eMumPoQcI9FfcBoaAr3JF5pQIcYH0YYy6YdQMrQk4g1HUM+I0SO2DgSPkEcrPcq0xSCkpYcG4U3SevyN80lEFAhOiHGccd1tpKvbXAjhn0d8fbnj5doyMkJf00jfMAx+zoUwHhFxgenYGRzTParHhmrtmpERwtCL85DbYURgVDI8wT9X6D6qRoiOsQnYAKf50AJCjQ04Ed/zVVeAQDh9TEin/jwB2NoVdfqWR2HuCX/+SR6cAHHDqXCBijUbAZbZmPiGFVhStpxWjMu3by8Tz08Ea3cGqmqDN6dIUAm2I0AeBUBgFH0urAFGsKU36wYhBh1Mh7WCCjgbhf1K/xLWJzgcFGPrOA6pRodRdWuSwQ3tbmVSpqliwIsIcnKx7b+eVpO53VezXg7ku/nrNZRUmVLHB+YYaUev0GsErbhslREsAf847D+ncUsMZisg+lQRwDC1hOoMJpiYgbwUt4TMSDE1oRPrfw9KT13da8Rp4d4mZOrnEeat2MMlw9SFpxWuo1qjFV1JFsD2yEJdq+kbdNdo0WPSd7JUEiU95ee8DiHH66GHQT5otU7cw4e7t90QvwtAnuS/jP8sADwmIsZV+AAAAAElFTkSuQmCC';
-function drawKnife(x,y,w,h,rotation=0,alpha=1){g.save();g.globalAlpha=alpha;g.translate(Math.round(x),Math.round(y));g.rotate(rotation);g.imageSmoothingEnabled=false;g.drawImage(knifeArt,-w*.5,-h*.5,w,h);g.restore()}
+function drawKnife(x,y,w,h,rotation=0,alpha=1){g.save();g.globalAlpha=alpha;g.translate(Math.round(x),Math.round(y));g.rotate(rotation);g.imageSmoothingEnabled=false;if(knifeArt.complete&&knifeArt.naturalWidth)g.drawImage(knifeArt,-w*.5,-h*.5,w,h);g.restore()}
 function smooth(t){t=clamp(t,0,1);return t*t*(3-2*t)}
 function handAndKnife(x,y,rotation,flip,reach,opacity=1){
  g.save();g.globalAlpha=opacity;g.translate(Math.round(x),Math.round(y));g.rotate(rotation);g.imageSmoothingEnabled=false;
  const lift=reach*5;
  // Compact open balisong: tip points upper-left, pivot rests just above the knuckles.
  // Render the complete knife at a controlled size, then cover only the near handle with fingers.
- g.drawImage(knifeArt,-46,-20-lift,66,32);
+ if(knifeArt.complete&&knifeArt.naturalWidth)g.drawImage(knifeArt,-46,-20-lift,66,32);
  // Straight rectangular sleeve and wrist, continuous with the palm.
  g.fillStyle='#252d3a';g.fillRect(3,13-lift,23,68);
  g.fillStyle='#a76e53';g.fillRect(5,13-lift,19,66);
